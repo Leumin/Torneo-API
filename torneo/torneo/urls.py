@@ -24,5 +24,5 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^api/', include(router.urls))
+    url('', include('API_torneo.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -124,12 +124,24 @@ class EquipoJugador(ModeloBase):
     dorsal = models.IntegerField()
 
 
-class PosicionArbitro(ModeloBase):
-    descripcion = models.CharField(max_length=50)
-
-
 class Arbitro(ModeloBase):
+    ARBITRO_PRINCIPAL = 1
+    ARBITRO_ASISTENTE_1 = 2
+    ARBITRO_ASISTENTE_2 = 3
+    CUARTO_ARBITRO = 4
+    QUINTO_ARBITRO = 5
+    SEXTO_ARBITRO = 6
+
+    POSICION_ARBITRO = (
+        (ARBITRO_PRINCIPAL, 'Arbitro Principal'),
+        (ARBITRO_ASISTENTE_1, 'Arbitro Asistente 1'),
+        (ARBITRO_ASISTENTE_2, 'Arbitro Asistente 2'),
+        (CUARTO_ARBITRO, 'Cuarto Arbitro'),
+        (QUINTO_ARBITRO, 'Quinto Arbitro'),
+        (SEXTO_ARBITRO, 'Sexto Arbitro'),
+    )
     nombre = models.CharField(max_length=50)
+    posicion = models.PositiveSmallIntegerField(choices=POSICION_ARBITRO)
     fecha_nacimiento = models.DateField()
     nacionalidad = models.CharField(max_length=50)
     lugar_nacimiento = models.CharField(max_length=50, blank=True)
@@ -153,7 +165,13 @@ class TipoAmonestaciones(ModeloBase):
 
 
 class Amonestaciones(ModeloBase):
-    amonestacion = models.ForeignKey(TipoAmonestaciones, on_delete=models.PROTECT)
+    AMARILLA = 1
+    ROJA = 2
+    TIPOS_AMONESTACIONES = (
+        (AMARILLA, 'Amarilla'),
+        (ROJA, 'roja'),
+    )
+    amonestacion = models.PositiveSmallIntegerField(choices=TIPOS_AMONESTACIONES)
     partido_jugado = models.ForeignKey(Encuentro, on_delete=models.PROTECT)
     jugador = models.ForeignKey(EquipoJugador, on_delete=models.PROTECT)
 
