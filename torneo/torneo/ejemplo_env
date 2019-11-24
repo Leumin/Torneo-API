@@ -1,0 +1,20 @@
+crear un archivo llamado .env al mismo nivel de manage.py
+y copiar lo siguiente cambiar los parametros segun su configuracion local.
+este archivo no se sube a gihub solo el para tenerlo localmente
+
+APP_ENV=local # posibles valores: local, dev, prod
+
+DB_USER=root
+DB_PASS=1234
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=torneo
+
+ALLOWED_HOSTS=127.0.0.1,10.0.0.1
+
+TIME_ZONE=America/Tegucigalpa
+
+# Agregar el secret key en su configuración de Django
+SECRET_KEY=""
+
+LANG=es
