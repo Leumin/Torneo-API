@@ -160,10 +160,6 @@ class Encuentro(ModeloBase):
     equipo_jugador = models.ManyToManyField(EquipoJugador)
 
 
-class TipoAmonestaciones(ModeloBase):
-    descripcion = models.CharField(max_length=50)
-
-
 class Amonestaciones(ModeloBase):
     AMARILLA = 1
     ROJA = 2
