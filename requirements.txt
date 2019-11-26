@@ -1,7 +1,7 @@
 Click==7.0
 Django==2.2.7
 djangorestframework==3.10.3
-mysqlclient==1.4.5
+mysqlclient==1.4.6
 Pillow==6.2.1
 python-dotenv==0.10.3
 pytz==2019.3
