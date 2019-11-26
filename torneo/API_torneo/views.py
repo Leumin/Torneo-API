@@ -24,3 +24,23 @@ class ViewTemporada(viewsets.ModelViewSet):
 class ViewPosicionJugador(viewsets.ModelViewSet):
     queryset = PosicionJugador.objects.all()
     serializer_class = PosicionJugadorSerializer
+
+
+class ViewCiudad(viewsets.ModelViewSet):
+    queryset = Ciudad.objects.all()
+    serializer_class = CiudadSerializer
+
+
+class ViewEstadio(viewsets.ModelViewSet):
+    queryset = Estadio.objects.all()
+    serializer_class = EstadioSerializer
+
+
+class ViewEquipo(viewsets.ModelViewSet):
+    queryset = Equipo.objects.all()
+    serializer_class = EquipoSerializer
+
+
+class ViewArbitro(viewsets.ModelViewSet):
+    queryset = Arbitro.objects.all()
+    serializer_class = ArbitroSerializer
