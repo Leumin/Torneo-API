@@ -1,7 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.db import models
 from rest_framework.exceptions import ValidationError
-from rest_framework import serializers
 
 
 class ModeloBase(models.Model):
