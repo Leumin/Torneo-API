@@ -20,45 +20,45 @@ class UsuarioSerializer(serializers.ModelSerializer):
             return usuario
 
 
-class TemporadaSerializer(serializers.ModelSerializer):
+class TemporadaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Temporada
-        fields = ('id', 'fecha_inicio', 'fecha_final')
+        fields = ('id', 'url','fecha_inicio', 'fecha_final')
 
 
-class JugadorSerializer(serializers.ModelSerializer):
+class JugadorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Jugador
         fields = (
-            'id', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
+            'id', 'url','nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
             'posicion')
 
 
-class PosicionJugadorSerializer(serializers.ModelSerializer):
+class PosicionJugadorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = PosicionJugador
-        fields = ('id', 'descripcion')
+        fields = ('id', 'url', 'descripcion')
 
 
-class CiudadSerializer(serializers.ModelSerializer):
+class CiudadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Ciudad
-        fields = ('id', 'nombre')
+        fields = ('id','url', 'nombre')
 
 
-class EstadioSerializer(serializers.ModelSerializer):
+class EstadioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Estadio
-        fields = ('id', 'nombre', 'capacidad', 'ciudad')
+        fields = ('id','url', 'nombre', 'capacidad', 'ciudad')
 
 
-class EquipoSerializer(serializers.ModelSerializer):
+class EquipoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Equipo
-        fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
+        fields = ('id','url' ,'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
 
 
-class ArbitroSerializer(serializers.ModelSerializer):
+class ArbitroSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Arbitro
-        fields = ('id', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')
+        fields = ('id','url', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')

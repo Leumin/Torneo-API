@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from API_torneo.views import ViewCrearUsuario
+from .views import ViewCrearUsuario
 from . import views
 from rest_framework import routers
 
