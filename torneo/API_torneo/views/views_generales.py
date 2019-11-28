@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
-from .serializers import *
-from .models import *
+from API_torneo.serializers import *
+from API_torneo.models import *
 
 
 class ViewCrearUsuario(generics.CreateAPIView):
