@@ -23,14 +23,14 @@ class UsuarioSerializer(serializers.ModelSerializer):
 class TemporadaSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Temporada
-        fields = ('id', 'url','fecha_inicio', 'fecha_final')
+        fields = ('id', 'url', 'fecha_inicio', 'fecha_final')
 
 
 class JugadorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Jugador
         fields = (
-            'id', 'url','nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
+            'id', 'url', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
             'posicion')
 
 
@@ -43,22 +43,28 @@ class PosicionJugadorSerializer(serializers.HyperlinkedModelSerializer):
 class CiudadSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Ciudad
-        fields = ('id','url', 'nombre')
+        fields = ('id', 'url', 'nombre')
 
 
 class EstadioSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Estadio
-        fields = ('id','url', 'nombre', 'capacidad', 'ciudad')
+        fields = ('id', 'url', 'nombre', 'capacidad', 'ciudad')
 
 
 class EquipoSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Equipo
-        fields = ('id','url' ,'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
+        fields = ('id', 'url', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
 
 
 class ArbitroSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Arbitro
-        fields = ('id','url', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')
+        fields = ('id', 'url', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')
+
+
+class EntrenadorSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Entrenador
+        fields = ('id', 'url', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')

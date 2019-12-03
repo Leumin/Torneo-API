@@ -12,6 +12,8 @@ router.register('ciudad', views_generales.ViewCiudad)
 router.register('estadio', views_generales.ViewEstadio)
 router.register('equipo', views_generales.ViewEquipo)
 router.register('arbitro', views_generales.ViewArbitro)
+router.register('entrenador', views_generales.ViewEntrenador)
+
 urlpatterns = [
     path('', include(router.urls)),
     path('usuarios/', ViewCrearUsuario.as_view(), name='crear_usuario')
