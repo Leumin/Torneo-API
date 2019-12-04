@@ -179,3 +179,14 @@ class Amonestaciones(ModeloBase):
 class Goles(ModeloBase):
     partido_jugado = models.ForeignKey(Encuentro, on_delete=models.PROTECT)
     jugador = models.ForeignKey(EquipoJugador, on_delete=models.PROTECT)
+
+
+class Entrenador(ModeloBase):
+    id = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50)
+    nacionalidad = models.CharField(max_length=50)
+    lugar_nacimiento = models.CharField(max_length=50, blank=True)
+    fecha_nacimiento = models.DateField()
+    imagen = models.ImageField(upload_to="Entrenador", blank=True)
+    equipo = models.ForeignKey(Equipo, on_delete=models.PROTECT)
+

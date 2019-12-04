@@ -44,3 +44,8 @@ class ViewEquipo(viewsets.ModelViewSet):
 class ViewArbitro(viewsets.ModelViewSet):
     queryset = Arbitro.objects.all()
     serializer_class = ArbitroSerializer
+
+
+class ViewEntrenador(viewsets.ModelViewSet):
+    queryset = Entrenador.objects.all()
+    serializer_class = EntrenadorSerializer
