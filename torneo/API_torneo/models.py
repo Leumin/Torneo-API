@@ -117,6 +117,9 @@ class Equipo(ModeloBase):
     estadio = models.ForeignKey(Estadio, on_delete=models.PROTECT)
     jugadores = models.ManyToManyField(Jugador, through='EquipoJugador')
 
+    def __str__(self):
+        return self.nombre
+
 
 class EquipoJugador(ModeloBase):
     equipo = models.ForeignKey(Equipo, on_delete=models.PROTECT)
