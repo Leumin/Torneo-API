@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 from dotenv import load_dotenv
-import django_heroku
 
 load_dotenv()
 
@@ -134,6 +133,3 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'API_torneo/dist')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'API_torneo/media')
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
