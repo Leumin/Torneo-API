@@ -68,3 +68,9 @@ class EntrenadorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Entrenador
         fields = ('id', 'url', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
+
+
+class EncuentroSerializaer(serializers.ModelSerializer):
+    class Meta:
+        model = Encuentro
+        fields = ('fecha_encuentro', 'equipo_local', 'equipo_visitante', 'temporada')

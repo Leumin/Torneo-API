@@ -11,7 +11,6 @@ class ViewCrearUsuario(generics.CreateAPIView):
 
 
 class ViewJugador(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,) #verifica que los usuarios esten authenticados para hacer uso de la view
     queryset = Jugador.objects.all()
     serializer_class = JugadorSerializer
 

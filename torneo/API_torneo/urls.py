@@ -1,5 +1,6 @@
 from django.urls import path, include
 
+from API_torneo.views.crear_encuentros import ViewCrearEncuentros
 from API_torneo.views.views_generales import ViewCrearUsuario
 from API_torneo.views import views_generales
 from rest_framework import routers
@@ -16,5 +17,6 @@ router.register('entrenador', views_generales.ViewEntrenador)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('usuarios/', ViewCrearUsuario.as_view(), name='crear_usuario')
+    path('usuarios/', ViewCrearUsuario.as_view(), name='crear_usuario'),
+    path('encuentro/crear/<int:id_temporada>', ViewCrearEncuentros.as_view(), name='crear_encuentros')
 ]
