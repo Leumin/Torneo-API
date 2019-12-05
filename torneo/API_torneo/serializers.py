@@ -52,10 +52,10 @@ class EstadioSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'nombre', 'capacidad', 'ciudad')
 
 
-class EquipoSerializer(serializers.HyperlinkedModelSerializer):
+class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
-        fields = ('id', 'url', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
+        fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
 
 
 class ArbitroSerializer(serializers.HyperlinkedModelSerializer):
@@ -70,7 +70,16 @@ class EntrenadorSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
 
 
-class EncuentroSerializaer(serializers.ModelSerializer):
+class EncuentroGenerarSerializaer(serializers.ModelSerializer):
     class Meta:
         model = Encuentro
         fields = ('fecha_encuentro', 'equipo_local', 'equipo_visitante', 'temporada')
+
+
+class EncuentroListarSerializaer(serializers.ModelSerializer):
+    equipo_local = EquipoSerializer(read_only=True)
+    equipo_visitante = EquipoSerializer(read_only=True)
+
+    class Meta:
+        model = Encuentro
+        fields = ('id', 'fecha_encuentro', 'equipo_local', 'equipo_visitante', 'temporada')
