@@ -33,7 +33,6 @@ class PosicionJugadorSerializer(serializers.ModelSerializer):
 
 
 class JugadorSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Jugador
         fields = (
@@ -48,15 +47,12 @@ class CiudadSerializer(serializers.ModelSerializer):
 
 
 class EstadioSerializer(serializers.ModelSerializer):
-    ciudad = CiudadSerializer(read_only=True)
     class Meta:
         model = Estadio
         fields = ('id', 'nombre', 'capacidad', 'ciudad')
 
 
 class EquipoSerializer(serializers.ModelSerializer):
-    jugadores = JugadorSerializer(many=True, read_only=True)
-
     class Meta:
         model = Equipo
         fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
@@ -69,8 +65,6 @@ class ArbitroSerializer(serializers.ModelSerializer):
 
 
 class EntrenadorSerializer(serializers.ModelSerializer):
-    equipo = EquipoSerializer(read_only=True)
-
     class Meta:
         model = Entrenador
         fields = ('id', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
