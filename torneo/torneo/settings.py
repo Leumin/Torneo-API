@@ -56,10 +56,6 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = (
-    'http://0.0.0.0:8080',
-    'http://0.0.0.0:8000',
-)
 
 
 AUTH_USER_MODEL = 'API_torneo.Usuario'
