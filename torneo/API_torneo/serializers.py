@@ -83,3 +83,9 @@ class EncuentroListarSerializaer(serializers.ModelSerializer):
     class Meta:
         model = Encuentro
         fields = ('id', 'fecha_encuentro', 'equipo_local', 'equipo_visitante', 'temporada')
+
+
+class AmonestacionesCrearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Amonestaciones
+        fields = ('id', 'amonestacion', 'partido_jugado', 'jugador')

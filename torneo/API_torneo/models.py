@@ -189,4 +189,3 @@ class Entrenador(ModeloBase):
     fecha_nacimiento = models.DateField()
     imagen = models.ImageField(upload_to="Entrenador", blank=True)
     equipo = models.ForeignKey(Equipo, on_delete=models.PROTECT)
-
