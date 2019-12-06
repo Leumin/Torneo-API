@@ -83,9 +83,15 @@ class Temporada(ModeloBase):
     fecha_inicio = models.DateField()
     fecha_final = models.DateField()
 
+    def __str__(self):
+        return f'{self.fecha_inicio} - {self.fecha_final}'
+
 
 class PosicionJugador(ModeloBase):
     descripcion = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.descripcion
 
 
 class Jugador(ModeloBase):
@@ -98,15 +104,24 @@ class Jugador(ModeloBase):
     imagen = models.ImageField(upload_to="Jugadores", blank=True)
     posicion = models.ForeignKey(PosicionJugador, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return self.nombre
+
 
 class Ciudad(ModeloBase):
     nombre = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nombre
 
 
 class Estadio(ModeloBase):
     nombre = models.CharField(max_length=50)
     capacidad = models.IntegerField()
     ciudad = models.ForeignKey(Ciudad, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return self.nombre
 
 
 class Equipo(ModeloBase):
@@ -126,6 +141,9 @@ class EquipoJugador(ModeloBase):
     jugador = models.ForeignKey(Jugador, on_delete=models.PROTECT)
     estado = models.BooleanField()
     dorsal = models.IntegerField()
+
+    def __str__(self):
+        return f'{self.equipo} - {self.jugador}'
 
 
 class Arbitro(ModeloBase):
@@ -151,6 +169,9 @@ class Arbitro(ModeloBase):
     lugar_nacimiento = models.CharField(max_length=50, blank=True)
     imagen = models.ImageField(upload_to="Arbitros", blank=True)
 
+    def __str__(self):
+        return self.nombre
+
 
 class Encuentro(ModeloBase):
     id = models.AutoField(primary_key=True)
@@ -175,6 +196,9 @@ class Amonestaciones(ModeloBase):
     partido_jugado = models.ForeignKey(Encuentro, on_delete=models.PROTECT)
     jugador = models.ForeignKey(EquipoJugador, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return f'{self.jugador} - {self.amonestacion}'
+
 
 class Goles(ModeloBase):
     partido_jugado = models.ForeignKey(Encuentro, on_delete=models.PROTECT)
@@ -190,3 +214,5 @@ class Entrenador(ModeloBase):
     imagen = models.ImageField(upload_to="Entrenador", blank=True)
     equipo = models.ForeignKey(Equipo, on_delete=models.PROTECT)
 
+    def __str__(self):
+        return self.nombre

@@ -20,54 +20,60 @@ class UsuarioSerializer(serializers.ModelSerializer):
             return usuario
 
 
-class TemporadaSerializer(serializers.HyperlinkedModelSerializer):
+class TemporadaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Temporada
-        fields = ('id', 'url', 'fecha_inicio', 'fecha_final')
+        fields = ('id', 'fecha_inicio', 'fecha_final')
 
 
-class JugadorSerializer(serializers.HyperlinkedModelSerializer):
+class PosicionJugadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PosicionJugador
+        fields = ('id', 'descripcion')
+
+
+class JugadorSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Jugador
         fields = (
-            'id', 'url', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
+            'id', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
             'posicion')
 
 
-class PosicionJugadorSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = PosicionJugador
-        fields = ('id', 'url', 'descripcion')
-
-
-class CiudadSerializer(serializers.HyperlinkedModelSerializer):
+class CiudadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ciudad
-        fields = ('id', 'url', 'nombre')
+        fields = ('id', 'nombre')
 
 
-class EstadioSerializer(serializers.HyperlinkedModelSerializer):
+class EstadioSerializer(serializers.ModelSerializer):
+    ciudad = CiudadSerializer(read_only=True)
     class Meta:
         model = Estadio
-        fields = ('id', 'url', 'nombre', 'capacidad', 'ciudad')
+        fields = ('id', 'nombre', 'capacidad', 'ciudad')
 
 
 class EquipoSerializer(serializers.ModelSerializer):
+    jugadores = JugadorSerializer(many=True, read_only=True)
+
     class Meta:
         model = Equipo
         fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
 
 
-class ArbitroSerializer(serializers.HyperlinkedModelSerializer):
+class ArbitroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Arbitro
-        fields = ('id', 'url', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')
+        fields = ('id', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')
 
 
-class EntrenadorSerializer(serializers.HyperlinkedModelSerializer):
+class EntrenadorSerializer(serializers.ModelSerializer):
+    equipo = EquipoSerializer(read_only=True)
+
     class Meta:
         model = Entrenador
-        fields = ('id', 'url', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
+        fields = ('id', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
 
 
 class EncuentroGenerarSerializaer(serializers.ModelSerializer):
