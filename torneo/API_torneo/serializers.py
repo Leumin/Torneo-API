@@ -65,6 +65,14 @@ class ArbitroSerializer(serializers.ModelSerializer):
 
 
 class EntrenadorSerializer(serializers.ModelSerializer):
+    equipo = EquipoSerializer()
+
+    class Meta:
+        model = Entrenador
+        fields = ('id', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
+
+
+class CrearEntrenadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Entrenador
         fields = ('id', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
