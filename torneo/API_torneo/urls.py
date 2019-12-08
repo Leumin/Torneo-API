@@ -6,6 +6,7 @@ from API_torneo.views import views_generales
 from rest_framework import routers
 from API_torneo.views.crear_amonestaciones import ViewCrearAmonestacion
 from API_torneo.views import crear_amonestaciones
+from API_torneo.views.crear_gol import ViewCrearGol
 
 router = routers.DefaultRouter()
 router.register('jugadores', views_generales.ViewJugador)
@@ -23,4 +24,5 @@ urlpatterns = [
     path('encuentros/generar/<int:id_temporada>', ViewCrearEncuentros.as_view(), name='crear_encuentros'),
     path('encuentros/listar/<int:id_temporada>', ViewListarEncuentros.as_view(), name='listar_encuentros'),
     path('amonestaciones/crear/', ViewCrearAmonestacion.as_view(), name='crear_amonestaciones')
+    path('goles/crear/', ViewCrearGol.as_view(), name='crear_gol')
 ]
