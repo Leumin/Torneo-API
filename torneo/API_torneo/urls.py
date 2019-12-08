@@ -23,6 +23,6 @@ urlpatterns = [
     path('usuarios/', ViewCrearUsuario.as_view(), name='crear_usuario'),
     path('encuentros/generar/<int:id_temporada>', ViewCrearEncuentros.as_view(), name='crear_encuentros'),
     path('encuentros/listar/<int:id_temporada>', ViewListarEncuentros.as_view(), name='listar_encuentros'),
-    path('amonestaciones/crear/', ViewCrearAmonestacion.as_view(), name='crear_amonestaciones')
+    path('amonestaciones/crear/', ViewCrearAmonestacion.as_view(), name='crear_amonestaciones'),
     path('goles/crear/', ViewCrearGol.as_view(), name='crear_gol')
 ]
