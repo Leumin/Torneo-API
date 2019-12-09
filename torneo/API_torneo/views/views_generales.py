@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
@@ -48,3 +47,8 @@ class ViewArbitro(viewsets.ModelViewSet):
 class ViewEntrenador(viewsets.ModelViewSet):
     queryset = Entrenador.objects.all()
     serializer_class = EntrenadorSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return CrearEntrenadorSerializer
+        return super().get_serializer_class()

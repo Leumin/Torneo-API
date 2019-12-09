@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from rest_framework.documentation import include_docs_urls
 from rest_framework_simplejwt import views as jwt_views
 
 router = routers.DefaultRouter()
@@ -13,4 +14,5 @@ urlpatterns = [
     url('', include('API_torneo.urls')),
     path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('docs/', include_docs_urls(title='Torneo API')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

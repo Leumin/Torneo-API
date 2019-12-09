@@ -20,60 +20,89 @@ class UsuarioSerializer(serializers.ModelSerializer):
             return usuario
 
 
-class TemporadaSerializer(serializers.HyperlinkedModelSerializer):
+class TemporadaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Temporada
-        fields = ('id', 'url', 'fecha_inicio', 'fecha_final')
+        fields = ('id', 'fecha_inicio', 'fecha_final')
 
 
-class JugadorSerializer(serializers.HyperlinkedModelSerializer):
+class PosicionJugadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PosicionJugador
+        fields = ('id', 'descripcion')
+
+
+class JugadorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jugador
         fields = (
-            'id', 'url', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
+            'id', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
             'posicion')
 
 
-class PosicionJugadorSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = PosicionJugador
-        fields = ('id', 'url', 'descripcion')
-
-
-class CiudadSerializer(serializers.HyperlinkedModelSerializer):
+class CiudadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ciudad
-        fields = ('id', 'url', 'nombre')
+        fields = ('id', 'nombre')
 
 
-class EstadioSerializer(serializers.HyperlinkedModelSerializer):
+class EstadioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Estadio
-        fields = ('id', 'url', 'nombre', 'capacidad', 'ciudad')
+        fields = ('id', 'nombre', 'capacidad', 'ciudad')
 
 
-class EquipoSerializer(serializers.HyperlinkedModelSerializer):
+class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
-        fields = ('id', 'url', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
+        fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
 
 
-class ArbitroSerializer(serializers.HyperlinkedModelSerializer):
+class ArbitroSerializer(serializers.ModelSerializer):
     class Meta:
         model = Arbitro
-        fields = ('id', 'url', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')
+        fields = ('id', 'nombre', 'posicion', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'imagen')
 
 
-class EntrenadorSerializer(serializers.HyperlinkedModelSerializer):
+class EntrenadorSerializer(serializers.ModelSerializer):
+    equipo = EquipoSerializer()
+
     class Meta:
         model = Entrenador
-        fields = ('id', 'url', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
+        fields = ('id', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
 
 
-class EncuentroSerializaer(serializers.ModelSerializer):
+class CrearEntrenadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Entrenador
+        fields = ('id', 'nombre', 'nacionalidad', 'lugar_nacimiento', 'fecha_nacimiento', 'imagen', 'equipo')
+
+
+class EncuentroGenerarSerializaer(serializers.ModelSerializer):
     class Meta:
         model = Encuentro
         fields = ('fecha_encuentro', 'equipo_local', 'equipo_visitante', 'temporada')
+
+
+class EncuentroListarSerializaer(serializers.ModelSerializer):
+    equipo_local = EquipoSerializer(read_only=True)
+    equipo_visitante = EquipoSerializer(read_only=True)
+
+    class Meta:
+        model = Encuentro
+        fields = ('id', 'fecha_encuentro', 'equipo_local', 'equipo_visitante', 'temporada')
+
+
+class AmonestacionesCrearSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Amonestaciones
+        fields = ('id', 'amonestacion', 'partido_jugado', 'jugador')
+
+
+class CrearGolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Goles
+        fields = ('id','partido_jugado','jugador')
 
 
 class ResultadoSerializer(serializers.ModelSerializer):

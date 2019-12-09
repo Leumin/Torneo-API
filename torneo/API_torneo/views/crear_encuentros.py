@@ -6,12 +6,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from API_torneo.models import Equipo, Temporada
-from API_torneo.serializers import EquipoSerializer, EncuentroSerializaer
+from API_torneo.models import Equipo, Temporada, Encuentro
+from API_torneo.serializers import EquipoSerializer, EncuentroGenerarSerializaer, EncuentroListarSerializaer
 
 
 class ViewCrearEncuentros(APIView):
-    serializer_class = EncuentroSerializaer
+    serializer_class = EncuentroGenerarSerializaer
 
     def get(self, request, id_temporada):
         query_equipo = Equipo.objects.all()
@@ -40,9 +40,10 @@ class ViewCrearEncuentros(APIView):
                     dias -= 1
                 else:
                     nueva_fecha = temporada + datetime.timedelta(days=dias)
+
                 data = {'fecha_encuentro': nueva_fecha, 'equipo_local': resultados[str(equipo_local)][str(x)],
                         'equipo_visitante': resultados[str(equipo_visita)][str(x)], 'temporada': id_temporada}
-                serializer = EncuentroSerializaer(data=data)
+                serializer = EncuentroGenerarSerializaer(data=data)
                 if serializer.is_valid():
                     encuentro = serializer.save()
                 else:
@@ -54,4 +55,11 @@ class ViewCrearEncuentros(APIView):
                 equipo[j] = equipo[j + 1]
             equipo[len(equipo) - 1] = temporal
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_200_OK)
+
+
+class ViewListarEncuentros(APIView):
+    def get(self, request, id_temporada):
+        encuentros = Encuentro.objects.filter(temporada=id_temporada)
+        data = EncuentroListarSerializaer(encuentros, many=True).data
+        return Response(data)
