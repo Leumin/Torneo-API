@@ -8,6 +8,7 @@ from API_torneo.views.crear_amonestaciones import ViewCrearAmonestacion
 from API_torneo.views import crear_amonestaciones
 from API_torneo.views.crear_gol import ViewCrearGol
 from API_torneo.views.view_goleadores import ViewGoleadores
+from API_torneo.views.view_amonestaciones import ViewAmonestacionesAmarillas, ViewAmonestacionesRojas
 
 router = routers.DefaultRouter()
 router.register('jugadores', views_generales.ViewJugador)
@@ -26,5 +27,7 @@ urlpatterns = [
     path('api/encuentros/listar/<int:id_temporada>', ViewListarEncuentros.as_view(), name='listar_encuentros'),
     path('api/amonestaciones/crear/', ViewCrearAmonestacion.as_view(), name='crear_amonestaciones'),
     path('api/goles/crear/', ViewCrearGol.as_view(), name='crear_gol'),
-    path('api/goles/ver/', ViewGoleadores.as_view(), name='ver_goleadores')
+    path('api/goles/ver/', ViewGoleadores.as_view(), name='ver_goleadores'),
+    path('api/amonestaciones/amarillas/', ViewAmonestacionesAmarillas.as_view(), name='ver_amonestaciones_amarillas'),
+    path('api/amonestaciones/rojas/', ViewAmonestacionesRojas.as_view(), name='ver_amonestaciones_rojas')
 ]

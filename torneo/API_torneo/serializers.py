@@ -105,26 +105,19 @@ class CrearGolSerializer(serializers.ModelSerializer):
         fields = ('id', 'partido_jugado', 'jugador')
 
 
-class ResultadoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ViewResultado
-        fields = ('id_partidos_jugados', 'equipo_local', 'goles_local', 'puntos_del_local', 'equipo_visita',
-                  'goles_visita')
-
-
-class Resultado1Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = ViewResultados
-        fields = ('id_partido_jugado', 'equipo_local', 'resultado_local', 'equipo_visita', 'resultado_visita')
-
-
-class TablaPosicionesSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ViewTablaDePosicion
-        fields = ('nombre_equipo', 'PG', 'PE', 'PP', 'PJ', 'GF', 'GC', 'PTS')
-
-
-class GoleadoresSerializer(serializers.Serializer):
+class GoleadoresVerSerializer(serializers.Serializer):
     goles = serializers.IntegerField()
     jugador = serializers.CharField()
     equipo = serializers.CharField()
+
+
+class AmarillaSerializer(serializers.Serializer):
+    jugador = serializers.CharField()
+    equipo = serializers.CharField()
+    amarillas = serializers.IntegerField()
+
+
+class RojaSerializer(serializers.Serializer):
+    jugador = serializers.CharField()
+    equipo = serializers.CharField()
+    rojas = serializers.IntegerField()
