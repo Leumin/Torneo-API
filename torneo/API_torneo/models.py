@@ -221,6 +221,9 @@ class Encuentro(ModeloBase):
     arbitros = models.ManyToManyField(Arbitro)
     equipo_jugador = models.ManyToManyField(EquipoJugador)
 
+    def __str__(self):
+        return f'{self.equipo_local} vs {self.equipo_visitante}'
+
 
 class Amonestaciones(ModeloBase):
     AMARILLA = 1

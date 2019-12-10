@@ -38,6 +38,9 @@ class ViewEquipo(viewsets.ModelViewSet):
     queryset = Equipo.objects.all()
     serializer_class = EquipoSerializer
 
+    def get_queryset(self):
+        pass
+
 
 class ViewArbitro(viewsets.ModelViewSet):
     queryset = Arbitro.objects.all()

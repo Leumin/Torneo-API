@@ -102,7 +102,7 @@ class AmonestacionesCrearSerializer(serializers.ModelSerializer):
 class CrearGolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goles
-        fields = ('id','partido_jugado','jugador')
+        fields = ('id', 'partido_jugado', 'jugador')
 
 
 class ResultadoSerializer(serializers.ModelSerializer):
@@ -122,3 +122,9 @@ class TablaPosicionesSerializer(serializers.ModelSerializer):
     class Meta:
         model = ViewTablaDePosicion
         fields = ('nombre_equipo', 'PG', 'PE', 'PP', 'PJ', 'GF', 'GC', 'PTS')
+
+
+class GoleadoresSerializer(serializers.Serializer):
+    goles = serializers.IntegerField()
+    jugador = serializers.CharField()
+    equipo = serializers.CharField()
