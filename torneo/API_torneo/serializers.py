@@ -112,11 +112,6 @@ class JugarPartidoSerializer(serializers.ModelSerializer):
             'id', 'temporada', 'estadio', 'fecha_partido_jugado', 'arbitros')
 
 
-class ResultadoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ViewResultado
-        fields = ('id_partidos_jugados', 'equipo_local', 'goles_local', 'puntos_del_local', 'equipo_visita',
-                  'goles_visita')
 class GoleadoresVerSerializer(serializers.Serializer):
     goles = serializers.IntegerField()
     jugador = serializers.CharField()
