@@ -2,7 +2,7 @@ from API_torneo.models import *
 from API_torneo.serializers import *
 from rest_framework.views import APIView
 from django.db.models import Count
-from django.http import JsonResponse
+from rest_framework.response import Response
 
 
 class ViewGoleadores(APIView):
@@ -19,4 +19,4 @@ class ViewGoleadores(APIView):
         # print(data)
         serializers = GoleadoresSerializer(data=data, many=True)
         if serializers.is_valid():
-            return JsonResponse(serializers.data, safe=False)
+            return Response(serializers.data)
