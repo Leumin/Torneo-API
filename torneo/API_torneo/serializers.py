@@ -102,7 +102,14 @@ class AmonestacionesCrearSerializer(serializers.ModelSerializer):
 class CrearGolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goles
-        fields = ('id','partido_jugado','jugador')
+        fields = ('id', 'partido_jugado', 'jugador')
+
+
+class JugarPartidoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Encuentro
+        fields = (
+            'id', 'temporada', 'estadio', 'fecha_partido_jugado', 'arbitros')
 
 
 class ResultadoSerializer(serializers.ModelSerializer):
