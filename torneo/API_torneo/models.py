@@ -79,46 +79,6 @@ class Usuario(AbstractBaseUser):
         return self.is_admin
 
 
-class ViewTablaDePosicion(models.Model):
-    nombre_equipo = models.CharField(max_length=20)
-    PG = models.IntegerField(max_length=2)
-    PE = models.IntegerField(max_length=2)
-    PP = models.IntegerField(max_length=2)
-    PJ = models.IntegerField(max_length=2)
-    GF = models.IntegerField(max_length=2)
-    GC = models.IntegerField(max_length=2)
-    PTS = models.IntegerField(max_length=3)
-
-    class Meta:
-        managed = False
-        db_table = 'tabla_posiciones'
-
-
-class ViewResultados(models.Model):
-    id_partidos_jugados = models.AutoField(primary_key=True)
-    equipo_local = models.IntegerField(max_length=3)
-    goles_local = models.IntegerField(max_length=3)
-    puntos_del_local = models.IntegerField(max_length=3)
-    equipo_visita = models.IntegerField(max_length=3)
-    goles_visita = models.IntegerField(max_length=3)
-
-    class Meta:
-        managed = False
-        db_table = 'resultado'
-
-
-class ViewResultado(models.Model):
-    id_partido_jugado = models.AutoField(primary_key=True)
-    equipo_local = models.IntegerField(max_length=3)
-    resultado_local = models.IntegerField(max_length=2)
-    equipo_visita = models.IntegerField(max_length=3)
-    resultado_visita = models.IntegerField(max_length=3)
-
-    class Meta:
-        managed = False
-        db_table = 'resultado1'
-
-
 class Temporada(ModeloBase):
     fecha_inicio = models.DateField()
     fecha_final = models.DateField()
@@ -220,6 +180,9 @@ class Encuentro(ModeloBase):
     fecha_partido_jugado = models.DateTimeField(null=True)
     arbitros = models.ManyToManyField(Arbitro)
     equipo_jugador = models.ManyToManyField(EquipoJugador)
+
+    def __str__(self):
+        return f'{self.equipo_local} vs {self.equipo_visitante}'
 
 
 class Amonestaciones(ModeloBase):
