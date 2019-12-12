@@ -83,9 +83,6 @@ class Temporada(ModeloBase):
     fecha_inicio = models.DateField()
     fecha_final = models.DateField()
 
-    def __str__(self):
-        return f'{self.fecha_inicio} - {self.fecha_final}'
-
 
 class PosicionJugador(ModeloBase):
     descripcion = models.CharField(max_length=50)
@@ -183,6 +180,9 @@ class Encuentro(ModeloBase):
     fecha_partido_jugado = models.DateTimeField(null=True)
     arbitros = models.ManyToManyField(Arbitro)
     equipo_jugador = models.ManyToManyField(EquipoJugador)
+
+    def __str__(self):
+        return f'{self.equipo_local} vs {self.equipo_visitante}'
 
 
 class Amonestaciones(ModeloBase):

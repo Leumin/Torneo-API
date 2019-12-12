@@ -10,8 +10,8 @@ class ViewCrearUsuario(generics.CreateAPIView):
 
 
 class ViewJugador(viewsets.ModelViewSet):
-    queryset = Jugador.objects.all()
-    serializer_class = JugadorSerializer
+    queryset = EquipoJugador.objects.all()
+    serializer_class = EquipoJugadorSerializer
 
 
 class ViewTemporada(viewsets.ModelViewSet):
