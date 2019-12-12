@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/goles/crear/', ViewCrearGol.as_view(), name='crear_gol'),
     path('api/goles/ver/', ViewGoleadores.as_view(), name='ver_goleadores'),
     path('api/amonestaciones/amarillas/', ViewAmonestacionesAmarillas.as_view(), name='ver_amonestaciones_amarillas'),
-    path('api/encuentro/jugar/<int:id_encuentro>', ViewJugarPartido.as_view(), name='jugar_partido')
+    path('api/encuentro/jugar/<int:id_encuentro>', ViewJugarPartido.as_view(), name='jugar_partido'),
     path('api/amonestaciones/rojas/', ViewAmonestacionesRojas.as_view(), name='ver_amonestaciones_rojas')
+
 ]
