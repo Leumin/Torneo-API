@@ -1,13 +1,11 @@
 import datetime
-import pprint
-
 from rest_framework import status
-from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from API_torneo.models import Equipo, Temporada, Encuentro
-from API_torneo.serializers import EquipoSerializer, EncuentroGenerarSerializaer, EncuentroListarSerializaer
+from API_torneo.serializers import EncuentroGenerarSerializaer, EncuentroListarSerializaer, \
+    EncuentroDetalleSerializaer
 
 
 class ViewCrearEncuentros(APIView):
@@ -62,4 +60,11 @@ class ViewListarEncuentros(APIView):
     def get(self, request, id_temporada):
         encuentros = Encuentro.objects.filter(temporada=id_temporada)
         data = EncuentroListarSerializaer(encuentros, many=True).data
+        return Response(data)
+
+
+class ViewDetalleEncuentros(APIView):
+    def get(self, request, id_encuentro):
+        encuentros = Encuentro.objects.get(id=id_encuentro)
+        data = EncuentroDetalleSerializaer(encuentros).data
         return Response(data)

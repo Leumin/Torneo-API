@@ -52,7 +52,24 @@ class EstadioSerializer(serializers.ModelSerializer):
         fields = ('id', 'nombre', 'capacidad', 'ciudad')
 
 
+class EstadioListarSerializer(serializers.ModelSerializer):
+    ciudad = CiudadSerializer(read_only=True)
+
+    class Meta:
+        model = Estadio
+        fields = ('id', 'nombre', 'capacidad', 'ciudad')
+
+
 class EquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipo
+        fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio')
+
+
+class EquipoListarSerializer(serializers.ModelSerializer):
+    estadio = EstadioListarSerializer(read_only=True)
+    jugadores = JugadorSerializer(read_only=True, many=True)
+
     class Meta:
         model = Equipo
         fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
@@ -87,6 +104,15 @@ class EncuentroGenerarSerializaer(serializers.ModelSerializer):
 class EncuentroListarSerializaer(serializers.ModelSerializer):
     equipo_local = EquipoSerializer(read_only=True)
     equipo_visitante = EquipoSerializer(read_only=True)
+
+    class Meta:
+        model = Encuentro
+        fields = ('id', 'fecha_encuentro', 'equipo_local', 'equipo_visitante', 'temporada')
+
+
+class EncuentroDetalleSerializaer(serializers.ModelSerializer):
+    equipo_local = EquipoListarSerializer(read_only=True)
+    equipo_visitante = EquipoListarSerializer(read_only=True)
 
     class Meta:
         model = Encuentro

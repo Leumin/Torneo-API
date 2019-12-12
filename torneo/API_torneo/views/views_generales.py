@@ -31,15 +31,22 @@ class ViewCiudad(viewsets.ModelViewSet):
 
 class ViewEstadio(viewsets.ModelViewSet):
     queryset = Estadio.objects.all()
-    serializer_class = EstadioSerializer
+    serializer_class = EstadioListarSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return EstadioSerializer
+        return super().get_serializer_class()
 
 
 class ViewEquipo(viewsets.ModelViewSet):
     queryset = Equipo.objects.all()
-    serializer_class = EquipoSerializer
+    serializer_class = EquipoListarSerializer
 
-    def get_queryset(self):
-        pass
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return EquipoSerializer
+        return super().get_serializer_class()
 
 
 class ViewArbitro(viewsets.ModelViewSet):
