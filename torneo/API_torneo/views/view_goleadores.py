@@ -18,7 +18,6 @@ class ViewGoleadores(APIView):
             data.append({'jugador': contenido['jugador__jugador__nombre'],
                          'equipo': contenido['jugador__equipo__nombre'],
                          'goles': contenido['goles']})
-        # print(data)
         serializers = GoleadoresVerSerializer(data=data, many=True)
         if serializers.is_valid():
             return Response(serializers.data)
