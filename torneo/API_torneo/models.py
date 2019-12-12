@@ -202,7 +202,11 @@ class Amonestaciones(ModeloBase):
 
 class Goles(ModeloBase):
     partido_jugado = models.ForeignKey(Encuentro, on_delete=models.PROTECT)
-    jugador = models.ForeignKey(EquipoJugador, on_delete=models.PROTECT)
+    jugador = models.ForeignKey(Jugador, on_delete=models.PROTECT)
+    equipo = models.ForeignKey(Equipo, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return str(self.partido_jugado.id)
 
 
 class Entrenador(ModeloBase):

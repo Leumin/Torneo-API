@@ -40,6 +40,37 @@ class JugadorSerializer(serializers.ModelSerializer):
             'posicion')
 
 
+class EquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipo
+        fields = ('id', 'nombre', 'fecha_fundacion', 'esquema_habitual', 'logo_equipo', 'estadio', 'jugadores')
+
+
+class EquipoJugadorSerializer(serializers.ModelSerializer):
+    equipo_id = serializers.IntegerField()
+    jugador = JugadorSerializer()
+
+    class Meta:
+        model = EquipoJugador
+        fields = ('id', 'jugador', 'estado', 'dorsal', 'equipo_id')
+
+    def create(self, validated_data):
+        jugador_data = validated_data.pop('jugador')
+        jugador = Jugador.objects.create(**jugador_data)
+        equipo_jugador = EquipoJugador.objects.create(jugador=jugador, **validated_data)
+        return equipo_jugador
+
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop('jugador')
+        Jugador.objects.update(**profile_data)
+        instance.equipo = validated_data.get('equipo', instance.equipo)
+        instance.jugador = validated_data.get('jugador', instance.jugador)
+        instance.estado = validated_data.get('estado', instance.estado)
+        instance.dorsal = validated_data.get('dorsal', instance.dorsal)
+        instance.save()
+        return instance
+
+
 class CiudadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ciudad
@@ -128,7 +159,7 @@ class AmonestacionesCrearSerializer(serializers.ModelSerializer):
 class CrearGolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Goles
-        fields = ('id', 'partido_jugado', 'jugador')
+        fields = ('id', 'partido_jugado', 'jugador', 'equipo')
 
 
 class JugarPartidoSerializer(serializers.ModelSerializer):
