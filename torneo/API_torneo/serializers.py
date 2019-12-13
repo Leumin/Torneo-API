@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework import serializers
 from .models import *
 
@@ -32,14 +33,6 @@ class PosicionJugadorSerializer(serializers.ModelSerializer):
         fields = ('id', 'descripcion')
 
 
-class JugadorSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Jugador
-        fields = (
-            'id', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
-            'posicion')
-
-
 class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
@@ -48,27 +41,50 @@ class EquipoSerializer(serializers.ModelSerializer):
 
 class EquipoJugadorSerializer(serializers.ModelSerializer):
     equipo_id = serializers.IntegerField()
-    jugador = JugadorSerializer()
 
     class Meta:
         model = EquipoJugador
         fields = ('id', 'jugador', 'estado', 'dorsal', 'equipo_id')
+        read_only_fields = ('jugador',)
+
+
+class JugadorListarSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Jugador
+        fields = (
+            'id', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
+            'posicion')
+
+
+class JugadorSerializer(serializers.ModelSerializer):
+    equipo_jugador = EquipoJugadorSerializer()
+
+    class Meta:
+        model = Jugador
+        fields = (
+            'id', 'nombre', 'fecha_nacimiento', 'nacionalidad', 'lugar_nacimiento', 'peso', 'estatura', 'imagen',
+            'posicion', 'equipo_jugador')
 
     def create(self, validated_data):
-        jugador_data = validated_data.pop('jugador')
-        jugador = Jugador.objects.create(**jugador_data)
-        equipo_jugador = EquipoJugador.objects.create(jugador=jugador, **validated_data)
-        return equipo_jugador
+        equipo_jugador = validated_data.pop('equipo_jugador')
+        with transaction.atomic():
+            jugador = Jugador.objects.create(**validated_data)
+            EquipoJugador.objects.create(jugador=jugador, **equipo_jugador)
+        return jugador
 
     def update(self, instance, validated_data):
-        profile_data = validated_data.pop('jugador')
-        Jugador.objects.update(**profile_data)
-        instance.equipo = validated_data.get('equipo', instance.equipo)
-        instance.jugador = validated_data.get('jugador', instance.jugador)
-        instance.estado = validated_data.get('estado', instance.estado)
-        instance.dorsal = validated_data.get('dorsal', instance.dorsal)
-        instance.save()
-        return instance
+        equipo_jugador = validated_data.pop('equipo_jugador')
+        with transaction.atomic():
+            Jugador.objects.update(**validated_data)
+            e_j = instance.equipo_jugador
+            e_j.equipo = equipo_jugador.get('equipo', e_j.equipo)
+            e_j.jugador = equipo_jugador.get('jugador', e_j.jugador)
+            e_j.estado = equipo_jugador.get('estado', e_j.estado)
+            e_j.dorsal = equipo_jugador.get('dorsal', e_j.dorsal)
+            e_j.save()
+
+            return instance
 
 
 class CiudadSerializer(serializers.ModelSerializer):

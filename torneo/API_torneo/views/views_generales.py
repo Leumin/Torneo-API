@@ -1,5 +1,7 @@
 from rest_framework import viewsets, generics
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from API_torneo.serializers import *
 from API_torneo.models import *
@@ -10,8 +12,8 @@ class ViewCrearUsuario(generics.CreateAPIView):
 
 
 class ViewJugador(viewsets.ModelViewSet):
-    queryset = EquipoJugador.objects.all()
-    serializer_class = EquipoJugadorSerializer
+    queryset = Jugador.objects.all()
+    serializer_class = JugadorSerializer
 
 
 class ViewTemporada(viewsets.ModelViewSet):

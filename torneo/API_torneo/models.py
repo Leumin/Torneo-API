@@ -104,6 +104,10 @@ class Jugador(ModeloBase):
     def __str__(self):
         return self.nombre
 
+    @property
+    def equipo_jugador(self):
+        return self.equipojugador_set.first()
+
 
 class Ciudad(ModeloBase):
     nombre = models.CharField(max_length=50)
