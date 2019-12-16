@@ -1,5 +1,7 @@
 from rest_framework import viewsets, generics
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from API_torneo.serializers import *
 from API_torneo.models import *
@@ -10,8 +12,8 @@ class ViewCrearUsuario(generics.CreateAPIView):
 
 
 class ViewJugador(viewsets.ModelViewSet):
-    queryset = EquipoJugador.objects.all()
-    serializer_class = EquipoJugadorSerializer
+    queryset = Jugador.objects.all()
+    serializer_class = JugadorSerializer
 
 
 class ViewTemporada(viewsets.ModelViewSet):
@@ -31,12 +33,22 @@ class ViewCiudad(viewsets.ModelViewSet):
 
 class ViewEstadio(viewsets.ModelViewSet):
     queryset = Estadio.objects.all()
-    serializer_class = EstadioSerializer
+    serializer_class = EstadioListarSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return EstadioSerializer
+        return super().get_serializer_class()
 
 
 class ViewEquipo(viewsets.ModelViewSet):
     queryset = Equipo.objects.all()
-    serializer_class = EquipoSerializer
+    serializer_class = EquipoListarSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'create' or self.action == 'update':
+            return EquipoSerializer
+        return super().get_serializer_class()
 
 
 class ViewArbitro(viewsets.ModelViewSet):
