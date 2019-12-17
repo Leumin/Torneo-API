@@ -1,11 +1,11 @@
-from rest_framework.views import APIView
 from django.db import connection
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 
-class ViewResultado(APIView):
+class ViewResultadoEncuentro(APIView):
 
-    def get(self, request):
+    def get(self, request, id_resultado):
         with connection.cursor() as cursor:
             cursor.execute("SELECT "
                            "`API_torneo_encuentro`.`id` AS `id_partido_jugado`,"
@@ -27,8 +27,7 @@ class ViewResultado(APIView):
                            "ON (`torneo`.`API_torneo_encuentro`.`equipo_local_id` = `equipo_local`.`id`))"
                            "JOIN `torneo`.`API_torneo_equipo` `equipo_visitante`"
                            "ON(`torneo`.`API_torneo_encuentro`.`equipo_visitante_id` = `equipo_visitante`.`id`))"
-                           "WHERE `torneo`.`API_torneo_encuentro`.`fecha_partido_jugado` IS NOT NULL "
-                           "ORDER BY `torneo`.`API_torneo_encuentro`.`fecha_encuentro`")
+                           "WHERE `torneo`.`API_torneo_encuentro`.`id` = %s", [id_resultado])
 
             columns = [col[0] for col in cursor.description]
             return Response([
