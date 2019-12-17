@@ -11,6 +11,7 @@ from API_torneo.views.jugar_partido import ViewJugarPartido
 from API_torneo.views.view_goleadores import ViewGoleadores
 from API_torneo.views.view_amonestaciones import ViewAmonestacionesAmarillas, ViewAmonestacionesRojas
 from API_torneo.views.view_resultados import ViewResultado
+from API_torneo.views.view_resultado_encuentro import ViewResultadoEncuentro
 
 router = routers.DefaultRouter()
 router.register('jugadores', views_generales.ViewJugador)
@@ -34,6 +35,7 @@ urlpatterns = [
     path('api/amonestaciones/amarillas/', ViewAmonestacionesAmarillas.as_view(), name='ver_amonestaciones_amarillas'),
     path('api/encuentro/jugar/<int:id_encuentro>', ViewJugarPartido.as_view(), name='jugar_partido'),
     path('api/amonestaciones/rojas/', ViewAmonestacionesRojas.as_view(), name='ver_amonestaciones_rojas'),
-    path('api/resultados/', ViewResultado.as_view())
+    path('api/resultados/', ViewResultado.as_view()),
+    path('api/resultado/<int:id_resultado>', ViewResultadoEncuentro.as_view())
 
 ]
