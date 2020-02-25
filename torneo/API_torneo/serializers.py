@@ -9,16 +9,16 @@ class UsuarioSerializer(serializers.ModelSerializer):
         fields = ('correo', 'password', 'identidad', 'primer_nombre', 'primer_apellido')
         extra_kwargs = {'password': {'write_only': True}}
 
-        def create(self, validated_data):
-            usuario = Usuario(
-                correo=validated_data['correo'],
-                identidad=validated_data['identidad'],
-                primer_nombre=validated_data['primer_nombre'],
-                primer_apellido=validated_data['primer_apellido']
-            )
-            usuario.set_password(validated_data['password'])
-            usuario.save()
-            return usuario
+    def create(self, validated_data):
+        usuario = Usuario(
+            correo=validated_data['correo'],
+            identidad=validated_data['identidad'],
+            primer_nombre=validated_data['primer_nombre'],
+            primer_apellido=validated_data['primer_apellido']
+        )
+        usuario.set_password(validated_data['password'])
+        usuario.save()
+        return usuario
 
 
 class TemporadaSerializer(serializers.ModelSerializer):
